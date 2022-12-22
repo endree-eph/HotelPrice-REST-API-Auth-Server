@@ -4,8 +4,9 @@ import cz.hotelpice.data.MongoUserDataSource
 import cz.hotelpice.data.models.User
 import io.ktor.server.application.*
 import cz.hotelpice.plugins.*
-import cz.hotelpice.secure.JwtTokenService
-import cz.hotelpice.secure.TokenConfig
+import cz.hotelpice.security.hashing.SHA256HashingService
+import cz.hotelpice.security.token.JwtTokenService
+import cz.hotelpice.security.token.TokenConfig
 import org.litote.kmongo.KMongo
 import org.litote.kmongo.getCollection
 
@@ -29,8 +30,16 @@ fun Application.module() {
         exiresIn = 365L * 1000L * 60L * 24L,
         secret = System.getenv("JWT_SECRET")
     )
-    configureSecurity()
+
+    val hashingService = SHA256HashingService()
+
+    configureSecurity(tokenConfig)
     configureSerialization()
     configureMonitoring()
-    configureRouting()
+    configureRouting(
+        userDataSource = userDataSource,
+        hashingService = hashingService,
+        tokenService = tokenService,
+        tokenConfig = tokenConfig
+    )
 }

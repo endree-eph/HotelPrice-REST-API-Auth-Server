@@ -1,4 +1,4 @@
-package cz.hotelpice.secure
+package cz.hotelpice.security.token
 
 data class TokenClaim(
     val name: String,

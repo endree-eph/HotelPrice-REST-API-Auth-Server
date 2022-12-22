@@ -1,4 +1,4 @@
-package cz.hotelpice.secure
+package cz.hotelpice.security.token
 
 interface TokenService {
     fun generate(

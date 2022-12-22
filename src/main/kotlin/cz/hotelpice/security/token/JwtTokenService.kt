@@ -1,4 +1,4 @@
-package cz.hotelpice.secure
+package cz.hotelpice.security.token
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
