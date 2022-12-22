@@ -1,6 +1,6 @@
-package cz.hotelpice.data
+package cz.hotelprice.data
 
-import cz.hotelpice.data.models.User
+import cz.hotelprice.data.models.User
 
 interface UserDataSource {
     suspend fun getUserByUsername(username: String): User?

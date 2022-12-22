@@ -1,4 +1,4 @@
-package cz.hotelpice.plugins
+package cz.hotelprice.plugins
 
 import io.ktor.server.plugins.callloging.*
 import org.slf4j.event.*

@@ -32,4 +32,8 @@ class ApplicationTest {
             assertEquals("Hello World!", bodyAsText())
         }
     }
+
+    private fun configureRouting() {
+        TODO("Not yet implemented")
+    }
 }

@@ -1,4 +1,4 @@
-package cz.hotelpice.plugins
+package cz.hotelprice.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.contentnegotiation.*

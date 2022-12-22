@@ -1,1 +1,1 @@
-rootProject.name = "hotelpice-REST-API-Auth-Server"
+rootProject.name = "hotelprice-REST-API-Auth-Server"

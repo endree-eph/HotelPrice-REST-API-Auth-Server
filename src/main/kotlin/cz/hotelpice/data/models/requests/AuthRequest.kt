@@ -1,4 +1,4 @@
-package cz.hotelpice.data.models.requests
+package cz.hotelprice.data.models.requests
 
 import kotlinx.serialization.Serializable
 

@@ -1,14 +1,15 @@
-package cz.hotelpice
+package cz.hotelprice
 
-import cz.hotelpice.data.MongoUserDataSource
-import cz.hotelpice.data.models.User
+
+import cz.hotelprice.plugins.*
+import cz.hotelprice.security.hashing.SHA256HashingService
+import cz.hotelprice.security.token.JwtTokenService
+import cz.hotelprice.security.token.TokenConfig
+import cz.hotelprice.data.MongoUserDataSource
 import io.ktor.server.application.*
-import cz.hotelpice.plugins.*
-import cz.hotelpice.security.hashing.SHA256HashingService
-import cz.hotelpice.security.token.JwtTokenService
-import cz.hotelpice.security.token.TokenConfig
 import org.litote.kmongo.KMongo
 import org.litote.kmongo.getCollection
+
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
@@ -16,10 +17,9 @@ fun main(args: Array<String>): Unit =
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
 
-    val dbName = "HPdb"
     val db = KMongo.createClient()
-    val database = db.getDatabase("$dbName")
-    val HPdbCollection = database.getCollection<User>()
+    val database = db.getDatabase("HPdb")
+    //val HPdbCollection = database.getCollection<User>()
 
     val userDataSource = MongoUserDataSource(database)
 
@@ -29,6 +29,8 @@ fun Application.module() {
         audience = environment.config.property("jwt.audience").getString(),
         exiresIn = 365L * 1000L * 60L * 24L,
         secret = System.getenv("JWT_SECRET")
+            //?: throw Exception("JWT_SECRET environment variable not found - aborting")
+
     )
 
     val hashingService = SHA256HashingService()

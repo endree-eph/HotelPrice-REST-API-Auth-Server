@@ -1,4 +1,4 @@
-package cz.hotelpice.data.models.responses
+package cz.hotelprice.data.models.responses
 
 import kotlinx.serialization.Serializable
 
