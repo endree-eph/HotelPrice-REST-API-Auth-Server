@@ -1,0 +1,1 @@
+rootProject.name = "hotelpice-REST-API-Auth-Server"
