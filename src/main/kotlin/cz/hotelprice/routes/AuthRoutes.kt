@@ -45,7 +45,10 @@ fun Route.signUp(
         val user = User(
             username = request.username,
             password = saltedHash.hash,
-            salt = saltedHash.salt
+            salt = saltedHash.salt,
+            hotelCountry = request.hotelCountry,
+            hotelName = request.hotelName,
+            hotelStars = request.hotelStars
         )
         val wasAcknowledged = userDataSource.insertUser(user)
         if (!wasAcknowledged) {
