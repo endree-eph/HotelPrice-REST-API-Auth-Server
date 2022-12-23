@@ -23,7 +23,7 @@ fun Route.signUp(
     hashingService: HashingService,
     userDataSource: UserDataSource
 ) {
-    post("signup") {
+    post("/signup") {
         val request = kotlin.runCatching { call.receiveNullable<AuthRequest>() }.getOrNull() ?: kotlin.run {
             call.respond(HttpStatusCode.BadRequest)
             return@post
@@ -64,8 +64,8 @@ fun Route.signIn(
     tokenService: JwtTokenService,
     tokenConfig: TokenConfig
 ) {
-    post("signin") {
-        val request = call.receiveOrNull<AuthRequest>() ?: kotlin.run {
+    post("/signin") {
+        val request = kotlin.runCatching { call.receiveNullable<AuthRequest>() }.getOrNull() ?: kotlin.run {
             call.respond(HttpStatusCode.BadRequest)
             return@post
         }

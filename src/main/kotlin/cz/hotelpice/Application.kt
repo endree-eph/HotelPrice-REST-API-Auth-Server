@@ -1,6 +1,5 @@
 package cz.hotelprice
 
-
 import cz.hotelprice.plugins.*
 import cz.hotelprice.security.hashing.SHA256HashingService
 import cz.hotelprice.security.token.JwtTokenService
@@ -8,7 +7,6 @@ import cz.hotelprice.security.token.TokenConfig
 import cz.hotelprice.data.MongoUserDataSource
 import io.ktor.server.application.*
 import org.litote.kmongo.KMongo
-import org.litote.kmongo.getCollection
 
 
 fun main(args: Array<String>): Unit =
@@ -16,12 +14,18 @@ fun main(args: Array<String>): Unit =
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-
+    val dbName = "HPdb"
     val db = KMongo.createClient()
-    val database = db.getDatabase("HPdb")
-    //val HPdbCollection = database.getCollection<User>()
+        .getDatabase(dbName)
+    val userDataSource = MongoUserDataSource(db)
 
-    val userDataSource = MongoUserDataSource(database)
+//    val mongoPassword = System.getenv("MONGO_PASSWORD")
+//    val dbName = "HPdb"
+//    val db = KMongo.createClient(
+//        connectionString = "mongodb+srv://endree:$mongoPassword@cluster0.ewagew.mongodb.net/$dbName?retryWrites=true&w=majority"
+//    )
+//        .coroutine
+//        .getDatabase(dbName)
 
     val tokenService = JwtTokenService()
     val tokenConfig = TokenConfig(
@@ -30,7 +34,6 @@ fun Application.module() {
         exiresIn = 365L * 1000L * 60L * 24L,
         secret = System.getenv("JWT_SECRET")
             //?: throw Exception("JWT_SECRET environment variable not found - aborting")
-
     )
 
     val hashingService = SHA256HashingService()

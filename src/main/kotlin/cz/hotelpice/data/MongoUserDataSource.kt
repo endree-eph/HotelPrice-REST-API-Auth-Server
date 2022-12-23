@@ -1,7 +1,6 @@
 package cz.hotelprice.data
 
 import com.mongodb.client.MongoDatabase
-import cz.hotelprice.data.UserDataSource
 import cz.hotelprice.data.models.User
 import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
@@ -12,6 +11,7 @@ class MongoUserDataSource(
 ): UserDataSource {
 
     private val users = db.getCollection<User>()
+
     override suspend fun getUserByUsername(username: String): User? =
         users.findOne(User::username eq username)
 
