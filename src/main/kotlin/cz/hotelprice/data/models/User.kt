@@ -10,6 +10,6 @@ data class User(
     val password: String,
     val hotelCountry: String,
     val hotelName: String,
-    val hotelStars: Int,
+    val hotelStars: String,
     val salt: String
 )
