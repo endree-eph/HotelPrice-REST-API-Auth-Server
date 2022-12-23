@@ -8,5 +8,8 @@ data class User(
     val id: ObjectId = ObjectId(),
     val username: String,
     val password: String,
+    val hotelCountry: String,
+    val hotelName: String,
+    val hotelStars: Int,
     val salt: String
 )

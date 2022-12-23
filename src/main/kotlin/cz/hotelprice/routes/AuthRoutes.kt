@@ -37,7 +37,7 @@ fun Route.signUp(
         }
 
         if (areFieldsBlank || isPasswordShort) {
-            call.respond(HttpStatusCode.Conflict)
+            call.respond(HttpStatusCode.Conflict, "Password must contain at least 8 characters")
             return@post
         }
 
@@ -45,7 +45,10 @@ fun Route.signUp(
         val user = User(
             username = request.username,
             password = saltedHash.hash,
-            salt = saltedHash.salt
+            salt = saltedHash.salt,
+            hotelCountry = request.hotelCountry,
+            hotelName = request.hotelName,
+            hotelStars = request.hotelStars
         )
         val wasAcknowledged = userDataSource.insertUser(user)
         if (!wasAcknowledged) {
@@ -108,7 +111,7 @@ fun Route.signIn(
 
 fun Route.getSecretInfo() {
     authenticate {
-        get("secret") {
+        get("/secret") {
             val principal = call.principal<JWTPrincipal>()
             val userId = principal?.getClaim("userId", String::class)
             call.respond(HttpStatusCode.OK, "Your id: $userId")
